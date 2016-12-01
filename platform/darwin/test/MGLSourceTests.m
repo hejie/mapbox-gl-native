@@ -14,7 +14,7 @@
     [self.mapView.style addSource: source1];
     
     //Try to add the duplicate
-    XCTAssertThrows([self.mapView.style addSource: source2], NSException);
+    XCTAssertThrowsSpecific([self.mapView.style addSource: source2], NSException);
 }
 
 @end
