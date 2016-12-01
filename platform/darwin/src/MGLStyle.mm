@@ -190,7 +190,11 @@ static NSURL *MGLStyleURL_emerald;
          layer];
     }
 
-    self.mapView.mbglMap->addLayer(std::unique_ptr<mbgl::style::Layer>(layer.layer));
+    try {
+        self.mapView.mbglMap->addLayer(std::unique_ptr<mbgl::style::Layer>(layer.layer));
+    } catch (std::runtime_error & err) {
+        [NSException raise:@"Could not add layer" format:@"%s", err.what()];
+    }
 }
 
 - (void)insertLayer:(MGLStyleLayer *)layer belowLayer:(MGLStyleLayer *)otherLayer
@@ -211,7 +215,11 @@ static NSURL *MGLStyleURL_emerald;
     }
 
     const mbgl::optional<std::string> belowLayerId{otherLayer.identifier.UTF8String};
-    self.mapView.mbglMap->addLayer(std::unique_ptr<mbgl::style::Layer>(layer.layer), belowLayerId);
+    try {
+        self.mapView.mbglMap->addLayer(std::unique_ptr<mbgl::style::Layer>(layer.layer), belowLayerId);
+    } catch (std::runtime_error & err) {
+        [NSException raise:@"Could not insert layer" format:@"%s", err.what()];
+    }
 }
 
 - (void)addSource:(MGLSource *)source
