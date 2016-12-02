@@ -4794,15 +4794,11 @@ public:
                 image = [self dequeueReusableAnnotationImageWithIdentifier:MGLDefaultStyleMarkerSymbolName];
             }
             
-            if (image)
-            {
-                CGRect rect = [self positioningRectForCalloutForAnnotationWithTag:tag];
-                CGRect insetRect = UIEdgeInsetsInsetRect(rect, image.image.alignmentRectInsets);
-                CGPoint point = CGPointMake(CGRectGetMidX(insetRect), CGRectGetMidY(insetRect));
-                
-                if ( ! CGPointEqualToPoint(calloutView.center, point)) {
-                    calloutView.center = point;
-                }
+            CGRect rect = [self positioningRectForCalloutForAnnotationWithTag:tag];
+            CGPoint point = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
+            
+            if ( ! CGPointEqualToPoint(calloutView.center, point)) {
+                calloutView.center = point;
             }
         }
     }
