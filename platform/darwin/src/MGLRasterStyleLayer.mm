@@ -34,6 +34,10 @@
 
 - (void)addToMapView:(MGLMapView *)mapView
 {
+    if (_pendingLayer == nullptr) {
+        [NSException raise:NSInternalInconsistencyException format:@"Adding the same instance to the style more than once is invalid."];
+    }
+
     [self addToMapView:mapView belowLayer:nil];
 }
 

@@ -62,6 +62,10 @@
 
 - (void)addToMapView:(MGLMapView *)mapView
 {
+    if (_pendingSource == nullptr) {
+        [NSException raise:NSInternalInconsistencyException format:@"Adding the same instance to the style more than once is invalid."];
+    }
+    
     mapView.mbglMap->addSource(std::move(_pendingSource));
 }
 
